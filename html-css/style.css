@@ -1,0 +1,27 @@
+table, tr > * {
+  border: 1px solid black;
+}
+
+ul {
+  margin: 0;
+}
+
+.row-header {
+  font-style: italic;
+  font-weight: normal;
+}
+
+.outer-content {
+  width: 75%;
+  margin-top: 20px;
+  padding: 20px 0;
+  background-color: pink;
+  display: flex;
+  justify-content: center;
+  align-items: center;
+}
+
+.inner-content {
+  background-color: lightblue;
+  width: 75%;
+}
