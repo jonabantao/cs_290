@@ -2,6 +2,13 @@ table, tr > * {
   border: 1px solid black;
 }
 
+tbody > tr:nth-of-type(odd) {
+  background: papayawhip;
+}
+tbody > tr:nth-of-type(even) {
+  background: lightcoral;
+}
+
 ul {
   margin: 0;
 }
@@ -15,13 +22,14 @@ ul {
   width: 75%;
   margin-top: 20px;
   padding: 20px 0;
-  background-color: pink;
+  background: pink;
   display: flex;
   justify-content: center;
   align-items: center;
 }
 
 .inner-content {
-  background-color: lightblue;
+  background: lightblue;
   width: 75%;
+  text-align: center;
 }
