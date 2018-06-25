@@ -9,60 +9,60 @@
 </head>
 <body>
   <table>
-      <caption>Calories Consumed (Daily)</caption>
-      <thead>
-        <tr>
-          <th></th>
-          <th>Monday</th>
-          <th>Tuesday</th>
-          <th>Wednesday</th>
-          <th>Thursday</th>
-          <th>Friday</th>
-        </tr>
-      </thead>
-      <tbody>
-        <tr>
-          <th class="row-header">Jared</th>
-          <td>2380</td>
-          <td>1290</td>
-          <td>1000</td>
-          <td>1200</td>
-          <td>3210</td>
-        </tr>
-        <tr>
-          <th class="row-header">Laurie</th>
-          <td>1230</td>
-          <td>1800</td>
-          <td>2300</td>
-          <td>2190</td>
-          <td>1430</td>
-        </tr>
-        <tr>
-          <th class="row-header">Ygritte</th>
-          <td>1230</td>
-          <td>1120</td>
-          <td>1390</td>
-          <td>1230</td>
-          <td>500</td>
-        </tr>
-        <tr>
-          <th class="row-header">Bill</th>
-          <td>3400</td>
-          <td>2300</td>
-          <td>2340</td>
-          <td>2300</td>
-          <td>2100</td>
-        </tr>
-        <tr>
-          <th class="row-header">Kaneda</th>
-          <td>4400</td>
-          <td>4750</td>
-          <td>5430</td>
-          <td>6340</td>
-          <td>3300</td>
-        </tr>
-      </tbody>
-      <tfoot>
+    <caption>Calories Consumed (Daily)</caption>
+    <thead>
+      <tr>
+        <th></th>
+        <th>Monday</th>
+        <th>Tuesday</th>
+        <th>Wednesday</th>
+        <th>Thursday</th>
+        <th>Friday</th>
+      </tr>
+    </thead>
+    <tbody>
+      <tr>
+        <th class="row-header">Jared</th>
+        <td>2380</td>
+        <td>1290</td>
+        <td>1000</td>
+        <td>1200</td>
+        <td>3210</td>
+      </tr>
+      <tr>
+        <th class="row-header">Laurie</th>
+        <td>1230</td>
+        <td>1800</td>
+        <td>2300</td>
+        <td>2190</td>
+        <td>1430</td>
+      </tr>
+      <tr>
+        <th class="row-header">Ygritte</th>
+        <td>1230</td>
+        <td>1120</td>
+        <td>1390</td>
+        <td>1230</td>
+        <td>500</td>
+      </tr>
+      <tr>
+        <th class="row-header">Bill</th>
+        <td>3400</td>
+        <td>2300</td>
+        <td>2340</td>
+        <td>2300</td>
+        <td>2100</td>
+      </tr>
+      <tr>
+        <th class="row-header">Kaneda</th>
+        <td>4400</td>
+        <td>4750</td>
+        <td>5430</td>
+        <td>6340</td>
+        <td>3300</td>
+      </tr>
+    </tbody>
+    <tfoot>
       <tr>
         <td colspan="2">Footer 1</td>
         <td colspan="4">Footer 2</td>
@@ -79,5 +79,57 @@
   <div class="outer-content">
     <div class="inner-content">I'm an inner div</div>
   </div>
+  <form action="http://classes.engr.oregonstate.edu/eecs/winter2015/cs290-400/tools/class-content/form_tests/check_request.php"
+    method="post">
+    <fieldset>
+      <legend>POST Form</legend>
+      <div>
+        <label>Text: <input type="text" name="text_input" id="text_input"></label>
+      </div>
+      <div>
+        <label>Number: <input type="number" name="numerical_input"></label>
+      </div>
+      <div>
+        <label>Password: <input type="password" name="password_input"></label>
+      </div>
+      <div>
+        <h4>Select Your Candy:</h4>
+        <label><input type="radio" name="candy"> Snickers</label>
+        <br>
+        <label><input type="radio" name="candy"> Skittles</label>
+        <br>
+        <label><input type="radio" name="candy"> Mentos</label>
+        <br>
+      </div>
+      <input type="submit" value="Submit">
+    </fieldset>
+    <div>
+  </form>
+  <form action="http://classes.engr.oregonstate.edu/eecs/winter2015/cs290-400/tools/class-content/form_tests/check_request.php"
+    method="get">
+    <fieldset>
+      <legend>GET Form</legend>
+      <div>
+        <label>Text: <input type="text" name="text_input" id="text_input"></label>
+      </div>
+      <div>
+        <label>Number: <input type="number" name="numerical_input"></label>
+      </div>
+      <div>
+        <label>Password: <input type="password" name="password_input"></label>
+      </div>  
+      <div>
+        <h4>Select Your Candy:</h4>
+        <label><input type="radio" name="candy"> Snickers</label>
+        <br>
+        <label><input type="radio" name="candy"> Skittles</label>
+        <br>
+        <label><input type="radio" name="candy"> Mentos</label>
+        <br>
+      </div>
+      <input type="submit" value="Submit">
+    </fieldset>
+    <div>
+  </form>
 </body>
 </html>
