@@ -14,6 +14,7 @@ function hoistedFunc() {
 try {
   hoistedFuncExpression();
 } catch(e) {
+  console.log(e.message);
   console.log('Cannot call a function expression before assigning it!');
 }
 
