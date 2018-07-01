@@ -18,21 +18,13 @@
 // The Object.keys function will be useful when you need to go over 
 // the properties of objects to compare them.
 
-
-// Iterates through the first object and returns true if all of the
-// first objects property's are in the second object
-function checkMatchingKeys(obj1, obj2) {
-  return Object.keys(obj1).every(prop => obj2.hasOwnProperty(prop)) &&
-    Object.keys(obj2).every(prop => obj1.hasOwnProperty(prop));
-}
-
 // Returns true if both params have the same values or have same object,
 // with same properties and values
 function deepEqual(val1, val2) {
   // Only true if both val are objects and neither are null
   if ((typeof val1 === 'object' && val1 !== null) &&
    (typeof val2 === 'object' && val2 !== null)) {
-    if (!checkMatchingKeys(val1, val2)) {
+    if (Object.keys(val1).length !== Object.keys(val2).length) {
       return false;
     }
 
