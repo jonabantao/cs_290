@@ -22,37 +22,32 @@
 // Iterates through the first object and returns true if all of the
 // first objects property's are in the second object
 function checkMatchingKeys(obj1, obj2) {
-  return Object.keys(obj1)
-    .every(prop => obj2.hasOwnProperty(prop));
+  return Object.keys(obj1).every(prop => obj2.hasOwnProperty(prop)) &&
+    Object.keys(obj2).every(prop => obj1.hasOwnProperty(prop));
 }
 
-// Returns true if both objects have the same properties and values
-function deepEqual(obj1, obj2) {
-  // Initial check to see if outer properties match each other
-  if (!checkMatchingKeys(obj1, obj2) || !checkMatchingKeys(obj2, obj1)) {
-    return false;
+// Returns true if both params have the same values or have same object,
+// with same properties and values
+function deepEqual(val1, val2) {
+  // Only true if both val are objects and neither are null
+  if ((typeof val1 === 'object' && val1 !== null) &&
+   (typeof val2 === 'object' && val2 !== null)) {
+    if (!checkMatchingKeys(val1, val2)) {
+      return false;
+    }
+
+    // Can safely iterate through only one object since already checked
+    // if both objects have same properties
+    return Object.keys(val1).every(prop => {
+      const objOneValue = val1[prop];
+      const objTwoValue = val2[prop];
+
+      return deepEqual(objOneValue, objTwoValue);
+    });
   }
 
-  return Object.keys(obj1)
-    .every(prop => {
-      const objOneValue = obj1[prop];
-      const objTwoValue = obj2[prop];
-
-      // After null is handled, check if 'typeof' is object,
-      // call deepEqual if they're both objects.
-      if ((objOneValue === 'object' && objTwoValue === 'object')) {
-        // Handle the null check
-        if (objOneValue === null && objTwoValue === null) {
-          return true;
-        }
-
-        return deepEqual(objOneValue, objTwoValue);
-      }
-
-      // After handling objects, can safely check if values are 'number',
-      // 'undefined', 'string', etc...
-      return typeof objOneValue === typeof objTwoValue;
-    });
+  // At least one val is not an object, directly check equality
+  return val1 === val2;
 }
 
 let obj = { here: { is: "an" }, object: 2 };
@@ -62,3 +57,5 @@ console.log(deepEqual(obj, { here: 1, object: 2 }));
 // → false
 console.log(deepEqual(obj, { here: { is: "an" }, object: 2 }));
 // → true
+console.log(deepEqual(obj, null));
+// → false
