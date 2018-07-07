@@ -46,8 +46,8 @@ function testList() {
 function ES6BuildList(list) {
   let result = [];
   for (let i = 0; i < list.length; i++) {
-    let item = 'item' + list[k];
-    result.push(function () { alert(item + ' ' + list[k]) });
+    let item = 'item' + list[i];
+    result.push(function () { alert(item + ' ' + list[i]) });
   }
   return result;
 }
