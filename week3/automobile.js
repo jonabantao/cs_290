@@ -28,7 +28,7 @@ var automobiles = [
 function sortArr(comparator, array) {
   // Array.prototype.sort is a mutating method
   // Using Array.from to create a shallow copy and return a new array
-  const arrayCopy = Array.from(automobiles);
+  const arrayCopy = Array.from(array);
   return arrayCopy.sort(comparator);
 }
 
