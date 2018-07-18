@@ -1,28 +1,11 @@
-function buildPage() {
-  const NUM_OF_ROWS = 4;
-  const NUM_OF_COLS = 4;
-
-  const table = createTable(NUM_OF_ROWS, NUM_OF_COLS);
-  attachToBody(table);
-}
-
 function attachToBody(node) {
   document.body.appendChild(node);
-}
-
-function createTable(rows, cols) {
-  const table = document.createElement('table');
-
-  appendTableHeader(table, cols);
-  appendTableBody(table, rows - 1, cols);
-
-  return table;
 }
 
 function appendTableHeader(tableElement, cols) {
   const tableHead = document.createElement('thead');
   const tableRow = document.createElement('tr');
-  
+
   for (let i = 0; i < cols; i++) {
     const tableHeaderCell = document.createElement('th');
 
@@ -51,6 +34,23 @@ function appendTableBody(tableElement, rows, cols) {
   }
 
   tableElement.appendChild(tableBody);
+}
+
+function createTable(rows, cols) {
+  const table = document.createElement('table');
+
+  appendTableHeader(table, cols);
+  appendTableBody(table, rows - 1, cols);
+
+  return table;
+}
+
+function buildPage() {
+  const NUM_OF_ROWS = 4;
+  const NUM_OF_COLS = 4;
+
+  const table = createTable(NUM_OF_ROWS, NUM_OF_COLS);
+  attachToBody(table);
 }
 
 document.addEventListener('DOMContentLoaded', buildPage);
