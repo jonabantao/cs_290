@@ -1,0 +1,47 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <meta http-equiv="X-UA-Compatible" content="ie=edge">
+  <link rel="stylesheet" href="style.css">
+  <title>AJAX Interactions</title>
+</head>
+<body>
+  <article class="open-weather-info">
+    <h2>Get Weather for Cities</h2>
+    <form method="get" id="openWeatherForm">
+      <fieldset>
+        <legend>Open Weather Form</legend>
+        <div>
+          <label for="cityQuery">Enter City or Zip Code (US Only)</label>
+          <input type="text" name="cityQuery" id="cityQuery">
+        </div>
+        <input type="submit" value="Submit">
+      </fieldset>
+      <section>
+        <h4>City Name: <span id="cityName"></span></h4>
+        <p>Current Temperature: <span id="cityTemperature"></span></p>
+        <p>Humidity: <span id="cityHumidity"></span></p>
+      </section>
+    </form>
+  </article>
+  <article class="httpbin">
+    <form method="post" id="httpbinForm">
+      <fieldset>
+        <legend>HTTPBin Form</legend>
+        <div>
+          <label for="httpbinText">Type anything here: </label>
+          <input type="text" name="httpbinText" id="httpbinText">
+        </div>
+        <input type="submit" value="Submit">
+      </fieldset>
+    </form>
+    <section>
+      <h4>HTTPBin Response</h4>
+      <pre class="wrap-block" id="httpbinResponse"></pre>
+    </section>
+  </article>
+  <script src="./script.js"></script>
+</body>
+</html>
