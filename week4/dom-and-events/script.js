@@ -9,7 +9,7 @@ function appendTableHeader(tableElement, cols) {
   for (let i = 0; i < cols; i++) {
     const tableHeaderCell = document.createElement('th');
 
-    tableHeaderCell.innerText = `Header ${i + 1}`;
+    tableHeaderCell.textContent = `Header ${i + 1}`;
     tableRow.appendChild(tableHeaderCell);
   }
 
@@ -26,7 +26,7 @@ function appendTableBody(tableElement, rows, cols) {
     for (let col = 0; col < cols; col++) {
       const tableCell = document.createElement('td');
 
-      tableCell.innerText = `${row + 1} ${col + 1}`;
+      tableCell.textContent = `${row + 1} ${col + 1}`;
       tableRow.appendChild(tableCell);
     }
 
