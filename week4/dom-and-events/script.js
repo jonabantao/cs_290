@@ -101,10 +101,6 @@ function createMarkButton() {
   return markButton;
 }
 
-function turnCellBackgroundYellow() {
-  document.getElementById('selectedCell').style.backgroundColor = 'yellow';
-}
-
 // create a grid for easy directional access
 function createTableGridMap() {
   const tableBodyChildren = document.getElementById('tableBody').rows;
@@ -139,6 +135,10 @@ function selectCell(cell) {
 function resetCell(cell) {
   cell.removeAttribute('id');
   cell.style.border = '1px solid black';
+}
+
+function turnCellBackgroundYellow() {
+  getSelectedCell().style.backgroundColor = 'yellow';
 }
 
 // Will only return false (returns undef) if it goes out of bounds
