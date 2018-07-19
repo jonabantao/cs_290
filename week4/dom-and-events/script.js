@@ -52,21 +52,22 @@ function createTable(rows, cols) {
   return table;
 }
 
+// uses innerHTML because textContent cant create escaped HTML characters
 function insertDirectionalButtons(gridBody) {
   const upCell = gridBody.rows[0].cells[1];
-  upCell.innerHTML = '<button>&uarr;</button>';
+  upCell.innerHTML = '<button><strong>&uarr;</strong></button>';
   upCell.id = 'up';
 
   const leftCell = gridBody.rows[1].cells[0];
-  leftCell.innerHTML = '<button>&larr;</button>';
+  leftCell.innerHTML = '<button><strong>&larr;</strong></button>';
   leftCell.id = 'left';
 
   const downCell = gridBody.rows[1].cells[1];
-  downCell.innerHTML = '<button>&darr;</button>';
+  downCell.innerHTML = '<button><strong>&darr;</strong></button>';
   downCell.id = 'down';
 
   const rightCell = gridBody.rows[1].cells[2];
-  rightCell.innerHTML = '<button>&rarr;</button>';
+  rightCell.innerHTML = '<button><strong>&rarr;</strong></button>';
   rightCell.id = 'right';
 }
 
@@ -103,20 +104,10 @@ function createMarkButton() {
 
 // create a grid for easy directional access
 function createTableGridMap() {
-  const tableBodyChildren = document.getElementById('tableBody').rows;
-  const gridMap = [];
-
-  for (let row of tableBodyChildren) {
-    const gridRow = [];
-
-    for (let cell of row.children) {
-      gridRow.push(cell);
-    }
-
-    gridMap.push(gridRow);
-  }
-
-  return gridMap;
+  return Array.from(
+    document.getElementById('tableBody').rows,
+    row => Array.from(row.children)
+  );
 }
 
 function getSelectedCell() {
@@ -184,6 +175,7 @@ function buildPage() {
   attachToBody(createTable(NUM_OF_ROWS, NUM_OF_COLS));
   attachToBody(createDirectionalButtonDiv());
   attachToBody(createMarkButton());
+  
   const GRID_MAP = createTableGridMap();
 
   initializeSelectedCell();
