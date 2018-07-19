@@ -67,7 +67,8 @@ function handleHTTPBinSubmit(event) {
   const body = document.getElementById('httpbinText').value;
 
   sendDataToHTTPBin({ body })
-    .then(res => res.text())
+    .then(res => res.json())
+    .then(jsonRes => jsonRes.data)
     .then(displayHTTPBinResponse);
 }
 
