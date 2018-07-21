@@ -96,18 +96,11 @@ function createDirectionalButtonDiv() {
 
 function createMarkButton() {
   const markButton = document.createElement('button');
+
   markButton.id = 'markButton';
   markButton.textContent = 'Mark Cell';
 
   return markButton;
-}
-
-// create a grid for easy directional access
-function createTableGridMap() {
-  return Array.from(
-    document.getElementById('tableBody').rows,
-    row => Array.from(row.children)
-  );
 }
 
 function getSelectedCell() {
@@ -115,17 +108,21 @@ function getSelectedCell() {
 }
 
 function getCellFromMap(row, col, gridMap) {
-  return gridMap[row][col];
+  return gridMap.rows[row].cells[col];
 }
 
 function selectCell(cell) {
-  cell.id = 'selectedCell';
-  cell.style.border = '4px solid black';
+  const selectedCell = cell;
+
+  selectedCell.id = 'selectedCell';
+  selectedCell.style.border = '4px solid black';
 }
 
 function resetCell(cell) {
-  cell.removeAttribute('id');
-  cell.style.border = '1px solid black';
+  const cellToReset = cell;
+
+  cellToReset.removeAttribute('id');
+  cellToReset.style.border = '1px solid black';
 }
 
 function turnCellBackgroundYellow() {
@@ -133,11 +130,14 @@ function turnCellBackgroundYellow() {
 }
 
 // Will only return false (returns undef) if it goes out of bounds
-function cellExists(row, col, gridMap) {
-  return Boolean(gridMap[row] && gridMap[row][col]);
+function cellExists(row, col, tableBody) {
+  // Short circuits at undefined row to avoid throwing error when trying to access
+  // undefined.cells
+  return Boolean(tableBody.rows[row] && tableBody.rows[row].cells[col]);
 }
 
-function moveSelectedCell(row, col, gridMap) {
+function moveSelectedCell(row, col) {
+  const tableBody = document.getElementById('tableBody');
   const currentCell = getSelectedCell();
   const [currRow, currCol] = currentCell.textContent.split(',')
     .map(ele => parseInt(ele - 1, 10));
@@ -146,26 +146,27 @@ function moveSelectedCell(row, col, gridMap) {
   const newColPos = currCol + col;
 
   // Exit function if out of bounds
-  if (!cellExists(newRowPos, newColPos, gridMap)) {
+  if (!cellExists(newRowPos, newColPos, tableBody)) {
     return;
   }
 
-  const nextCell = getCellFromMap(newRowPos, newColPos, gridMap);
+  const nextCell = getCellFromMap(newRowPos, newColPos, tableBody);
   resetCell(currentCell);
   selectCell(nextCell);
 }
 
 function initializeSelectedCell() {
-  const initialCell = document.getElementById('tableBody').children[0].children[0];
+  const initialCell = document.getElementById('tableBody').rows[0].cells[0];
+
   selectCell(initialCell);
 }
 
-function initializeEventListeners(gridMap) {
+function initializeEventListeners() {
   document.getElementById('markButton').addEventListener('click', turnCellBackgroundYellow);
-  document.getElementById('left').addEventListener('click', () => moveSelectedCell(0, -1, gridMap));
-  document.getElementById('right').addEventListener('click', () => moveSelectedCell(0, 1, gridMap));
-  document.getElementById('up').addEventListener('click', () => moveSelectedCell(-1, 0, gridMap));
-  document.getElementById('down').addEventListener('click', () => moveSelectedCell(1, 0, gridMap));
+  document.getElementById('left').addEventListener('click', () => moveSelectedCell(0, -1));
+  document.getElementById('right').addEventListener('click', () => moveSelectedCell(0, 1));
+  document.getElementById('up').addEventListener('click', () => moveSelectedCell(-1, 0));
+  document.getElementById('down').addEventListener('click', () => moveSelectedCell(1, 0));
 }
 
 function buildPage() {
@@ -175,11 +176,11 @@ function buildPage() {
   attachToBody(createTable(NUM_OF_ROWS, NUM_OF_COLS));
   attachToBody(createDirectionalButtonDiv());
   attachToBody(createMarkButton());
-  
-  const GRID_MAP = createTableGridMap();
 
   initializeSelectedCell();
-  initializeEventListeners(GRID_MAP);
+  initializeEventListeners();
+
+  return document.getElementById('tableBody');
 }
 
 document.addEventListener('DOMContentLoaded', buildPage);
