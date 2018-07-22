@@ -33,6 +33,16 @@ app.get('/', (req, res) => {
   res.render('home', content);
 });
 
+app.post('/', (req, res) => {
+  const content = {};
+  console.log(req.body);
+
+  content.title = 'POST Request Received';
+  content.sentData = Object.assign({}, req.body);
+
+  res.render('home', content);
+});
+
 app.use((req, res) => {
   res.status(404).render('404');
 });
