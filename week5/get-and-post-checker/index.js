@@ -8,7 +8,11 @@ const PORT = process.argv[2] || 8080;
 const hbsConfig = {
   extname: 'hbs',
   defaultLayout: 'main',
+  partialsDir: `${__dirname}/views/partials`,
 };
+
+app.use(bodyParser.urlencoded({ extended: false }));
+app.use(bodyParser.json());
 
 app.engine('hbs', hbs(hbsConfig));
 
@@ -20,7 +24,7 @@ app.get('/', (req, res) => {
   const isQueryEmpty = Object.keys(req.query).length === 0;
 
   if (isQueryEmpty) {
-    content.title = 'WELCOME';
+    content.title = 'Welcome, send a GET or POST to see the results';
   } else {
     content.title = 'GET Request Received';
     content.sentData = Object.assign({}, req.query);
