@@ -35,7 +35,6 @@ app.get('/', (req, res) => {
 
 app.post('/', (req, res) => {
   const content = {};
-  console.log(req.body);
 
   content.title = 'POST Request Received';
   content.sentData = Object.assign({}, req.body);
