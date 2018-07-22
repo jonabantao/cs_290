@@ -1,0 +1,25 @@
+{
+  "name": "get-and-post-checker",
+  "version": "1.0.0",
+  "description": "GET and POST Checker HW",
+  "main": "index.js",
+  "dependencies": {
+    "body-parser": "^1.18.3",
+    "express": "^4.16.3",
+    "express-handlebars": "^3.0.0"
+  },
+  "devDependencies": {},
+  "scripts": {
+    "test": "null"
+  },
+  "repository": {
+    "type": "git",
+    "url": "git+https://github.com/jonabantao/cs_290.git"
+  },
+  "author": "Jonathan Abantao",
+  "license": "ISC",
+  "bugs": {
+    "url": "https://github.com/jonabantao/cs_290/issues"
+  },
+  "homepage": "https://github.com/jonabantao/cs_290#readme"
+}
