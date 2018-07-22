@@ -37,6 +37,11 @@ app.use((req, res) => {
   res.status(404).render('404');
 });
 
+app.use((err, req, res, next) => {
+  console.error(err.stack);
+  res.status(500).render('500');
+});
+
 app.listen(app.get('port'), () => {
   console.log(`Server started on ${app.get('port')}. Press Ctrl-C to terminate...`);
 });
