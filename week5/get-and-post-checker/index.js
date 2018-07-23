@@ -1,7 +1,7 @@
 const express = require('express');
 const bodyParser = require('body-parser');
 const hbs = require('express-handlebars');
-  
+
 const app = express();
 const PORT = process.argv[2] || 8080;
 
@@ -27,7 +27,7 @@ app.get('/', (req, res) => {
     content.title = 'Welcome, send a GET or POST to see the results';
   } else {
     content.title = 'GET Request Received';
-    content.sentData = Object.assign({}, req.query);
+    content.queryData = Object.assign({}, req.query);
   }
 
   res.render('home', content);
@@ -37,7 +37,8 @@ app.post('/', (req, res) => {
   const content = {};
 
   content.title = 'POST Request Received';
-  content.sentData = Object.assign({}, req.body);
+  content.queryData = Object.assign({}, req.query);
+  content.bodyData = Object.assign({}, req.body);
 
   res.render('home', content);
 });

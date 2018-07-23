@@ -1,5 +1,11 @@
 <h1>{{ title }}</h1>
 
-{{#if sentData}}
-  {{> home/data this}}
+{{#if queryData}}
+  <h3>Query Data Received:</h3>
+  {{> home/data this.queryData}}
+{{/if}}
+
+{{#if bodyData}}
+  <h3>Body Data Received:</h3>
+  {{> home/data this.bodyData}}
 {{/if}}
