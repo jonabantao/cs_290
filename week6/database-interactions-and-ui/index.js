@@ -1,5 +1,6 @@
 const express = require('express');
 const hbs = require('express-handlebars');
+const bodyParser = require('body-parser');
 
 const mysql = require('./dbcon');
 const DBQuery = require('./dbqueries');
@@ -14,6 +15,7 @@ app.engine('hbs', hbs({
 }));
 
 app.set('view engine', 'hbs');
+app.use(bodyParser.json());
 
 app.get('/', (req, res, next) => {
   DBQuery.fetchWorkouts()
@@ -23,7 +25,6 @@ app.get('/', (req, res, next) => {
       if (exercises.length) {
         content.exerciseLog = exercises;
       }
-      console.log(exercises)
 
       res.status(200).render('home', content);
     })
@@ -42,7 +43,16 @@ app.get('/reset-table', (req, res, next) => {
 });
 
 app.post('/api/workouts', (req, res, next) => {
-  res.render('home');
+  DBQuery.addNewWorkout(req.body)
+    .then(() => DBQuery.fetchWorkouts())
+    .then((exercises) => {
+      const content = {};
+
+      content.exerciseLog = exercises;
+
+      res.status(200).render('home', content);
+    })
+    .catch(() => res.status(500).render('500'));
 });
 
 app.listen(PORT, () => {

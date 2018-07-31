@@ -1,16 +1,66 @@
 <form id="logForm" method="post">
   <fieldset>
     <legend>Log Workout</legend>
+    <div>
+      <label for="name">Workout Name:</label>
+      <input type="text" name="name" id="name" required>
+    </div>
+    <div>
+      <label for="reps">Reps:</label>
+      <input type="number" name="reps" id="reps" required>
+    </div>
+    <div>
+      <label for="weight">Weight:</label>
+      <input type="number" name="weight" id="weight" required>
+    </div>
+    <div>
+      <label for="date">Date:</label>
+      <input type="date" name="date" id="date">
+    </div>
+    <div>
+      <label for="units">Units</label>
+        <div>
+          <input type="radio" id="kilos" name="units" value="0" checked />
+          <label for="huey">Kilograms</label>
+        </div>
+        <div>
+          <input type="radio" id="lbs" name="units" value="1" />
+          <label for="dewey">Pounds</label>
+        </div>
+    </div>
     <input type="submit" value="Log Workout">
   </fieldset>
 </form>
 
 <script>
+  const constructJSONfromForm = function formatJSON() {
+    function getValue(string) {
+      return document.getElementById(string).value;
+    }
+
+    const body = {};
+    
+    body.name = getValue('name');
+    body.reps = getValue('reps');
+    body.weight = getValue('weight');
+    body.date = getValue('date');
+    
+    if (document.getElementById('kilos').checked) {
+      body.lbs = 0;
+    } else {
+      body.lbs = 1;
+    }
+
+    return JSON.stringify(body);
+  }
+
   const handleSubmit = function formSubmit() {
-    fetch('/api/workouts', {
-      method: 'POST'
-    }).then(() => {
-      fetch('/api/workouts');
+    const workoutData = constructJSONfromForm();
+
+    return fetch('/api/workouts', {
+      method: 'POST',
+      headers: { 'Content-Type': 'application/json' },
+      body: workoutData,
     });
   }
 

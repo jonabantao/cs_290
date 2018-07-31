@@ -41,11 +41,34 @@ function fetchWorkouts() {
         reject(err);
       }
 
-      let workouts = JSON.parse(JSON.stringify(result))
-        .map(formatWorkout);
+      try {
+        let workouts = JSON.parse(JSON.stringify(result))
+          .map(formatWorkout);
 
-      resolve(workouts);
+        resolve(workouts);
+      } catch(e) {
+        reject(e);
+      }
     });
+  });
+}
+
+function addNewWorkout(workout) {
+  const { name, reps, weight, date, lbs } = workout;
+
+  return new Promise((resolve, reject) => {
+    mysql.pool.query(
+      'INSERT INTO workouts (name, reps, weight, date, lbs)' +
+      'VALUES (?, ?, ?, ?, ?)',
+      [name, reps, weight, date, lbs],
+      (err) => {
+        if (err) {
+          reject(err);
+        }
+
+        resolve();
+      }
+    );
   });
 }
 
@@ -89,6 +112,7 @@ function resetDB() {
 
 module.exports = {
   fetchWorkouts,
+  addNewWorkout,
   testInsert,
   resetDB,
 };
