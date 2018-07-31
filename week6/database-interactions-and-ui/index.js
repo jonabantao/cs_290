@@ -2,6 +2,7 @@ const express = require('express');
 const hbs = require('express-handlebars');
 
 const mysql = require('./dbcon');
+const DBQuery = require('./dbqueries');
 
 const app = express();
 const PORT = process.argv[2] || 8001;
@@ -14,25 +15,29 @@ app.engine('hbs', hbs({
 
 app.set('view engine', 'hbs');
 
-app.get('/reset-table', (req, res, next) => {
-  const context = {};
-
-  mysql.pool.query('DROP TABLE IF EXISTS workouts', (err) => {
-    const createString = 'CREATE TABLE workouts (' +
-      'id INT PRIMARY KEY AUTO_INCREMENT,' +
-      'name VARCHAR(255) NOT NULL,' +
-      'reps INT,' +
-      'weight INT,' +
-      'date DATE,' +
-      'lbs BOOLEAN' +
-      ')';
-
-    mysql.pool.query(createString, (err) => {
-      context.results = 'Table Reset';
-      res.render('home', content);
-    });
-  });
+app.get('/', (req, res, next) => {
+  DBQuery.fetchWorkouts()
+    .then(() => res.status(200).render('home'))
+    .catch(() => res.status(500).render('500'));
 });
 
+app.get('/reset-table', (req, res, next) => {
+  DBQuery.resetDB()
+    .then(() => {
+      const content = {};
+      content.info = 'Table Reset';
 
-app.listen(PORT, () => console.log(`Listening on ${PORT}. Press Ctrl-C to terminate`));
+      res.status(200).render('home', content);
+    })
+    .catch(() => res.status(500).render('500'));
+});
+
+app.post('/api/workouts', (req, res, next) => {
+  console.log('hit');
+
+  res.render('home');
+});
+
+app.listen(PORT, () => {
+  console.log(`Listening on ${PORT}. Press Ctrl-C to terminate`);
+});

@@ -1,0 +1,21 @@
+<form id="logForm" method="post">
+  <fieldset>
+    <legend>Log Workout</legend>
+    <input type="submit" value="Log Workout">
+  </fieldset>
+</form>
+
+<script>
+  const handleSubmit = function formSubmit() {
+    fetch('/api/workouts', {
+      method: 'POST'
+    }).then(() => {
+      fetch('/api/workouts');
+    });
+  }
+
+  document.getElementById('logForm').addEventListener('submit', (e) => {
+    e.preventDefault();
+    handleSubmit();
+  })
+</script>
