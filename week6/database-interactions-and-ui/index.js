@@ -17,7 +17,16 @@ app.set('view engine', 'hbs');
 
 app.get('/', (req, res, next) => {
   DBQuery.fetchWorkouts()
-    .then(() => res.status(200).render('home'))
+    .then((exercises) => {
+      const content = {};
+
+      if (exercises.length) {
+        content.exerciseLog = exercises;
+      }
+      console.log(exercises)
+
+      res.status(200).render('home', content);
+    })
     .catch(() => res.status(500).render('500'));
 });
 
@@ -33,8 +42,6 @@ app.get('/reset-table', (req, res, next) => {
 });
 
 app.post('/api/workouts', (req, res, next) => {
-  console.log('hit');
-
   res.render('home');
 });
 

@@ -1,5 +1,39 @@
 const mysql = require('./dbcon');
 
+// HELPER FUNCTIONS TO MODIFY WORKOUT LOG FOR FRONTEND
+function parseUnits(workout) {
+  if (workout.lbs) {
+    workout.unit = 'Pounds';
+  } else {
+    workout.unit = 'Kilograms';
+  }
+
+  delete workout.lbs;
+
+  return workout;
+}
+
+function parseDate(workout) {
+  const workoutDate = new Date(workout.date);
+  const formattedDate = `${workoutDate.getMonth() + 1}-${workoutDate.getDate()}-${workoutDate.getFullYear()}`;
+
+  workout.date = formattedDate;
+
+  return workout;
+}
+
+function formatWorkout(workout) {
+  let formattedWorkout = Object.assign({}, workout);
+
+  formattedWorkout = parseUnits(formattedWorkout);
+  formattedWorkout = parseDate(formattedWorkout);
+
+  return formattedWorkout;
+}
+
+
+
+// DB QUERIES
 function fetchWorkouts() {
   return new Promise((resolve, reject) => {
     mysql.pool.query('SELECT * FROM workouts', (err, result) => {
@@ -7,7 +41,10 @@ function fetchWorkouts() {
         reject(err);
       }
 
-      resolve(JSON.stringify(result));
+      let workouts = JSON.parse(JSON.stringify(result))
+        .map(formatWorkout);
+
+      resolve(workouts);
     });
   });
 }

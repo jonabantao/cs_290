@@ -1,0 +1,26 @@
+<table>
+  <caption>Logged Workouts</caption>
+  <thead>
+    <tr>
+      <th>Name</th>
+      <th>Reps</th>
+      <th>Weight</th>
+      <th>Date</th>
+      <th>Unit</th>
+      <th>Options</th>
+    </tr>
+  </thead>
+  <tbody>
+    {{#each this}}
+      <td>{{this.name}}</td>
+      <td>{{this.reps}}</td>
+      <td>{{this.weight}}</td>
+      <td>{{this.date}}</td>
+      <td>{{this.unit}}</td>
+      <td>
+        <button>Delete</button>
+        <button>Edit</button>
+      </td>
+    {{/each}}
+  </tbody>
+</table>
