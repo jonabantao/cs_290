@@ -44,14 +44,7 @@ app.get('/reset-table', (req, res, next) => {
 
 app.post('/api/workouts', (req, res, next) => {
   DBQuery.addNewWorkout(req.body)
-    .then(() => DBQuery.fetchWorkouts())
-    .then((exercises) => {
-      const content = {};
-
-      content.exerciseLog = exercises;
-
-      res.status(200).render('home', content);
-    })
+    .then(() => res.sendStatus(200))
     .catch(() => res.status(500).render('500'));
 });
 

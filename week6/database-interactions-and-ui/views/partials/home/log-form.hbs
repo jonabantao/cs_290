@@ -44,12 +44,7 @@
     body.reps = getValue('reps');
     body.weight = getValue('weight');
     body.date = getValue('date');
-    
-    if (document.getElementById('kilos').checked) {
-      body.lbs = 0;
-    } else {
-      body.lbs = 1;
-    }
+    body.lbs = document.getElementById('kilos').checked ? 0 : 1;
 
     return JSON.stringify(body);
   }
