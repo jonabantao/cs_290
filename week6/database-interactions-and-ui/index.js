@@ -1,18 +1,23 @@
 const express = require('express');
-const mysql = require('mysql');
+const hbs = require('express-handlebars');
 
-const PORT = process.argv[2] || 8001;
-const pool = mysql.createPool({
-  // info added later
-});
+const mysql = require('./dbcon');
 
 const app = express();
+const PORT = process.argv[2] || 8001;
 
+app.engine('hbs', hbs({
+  extname: 'hbs',
+  defaultLayout: 'main',
+  partialsDir: `${__dirname}/views/partials`,
+}));
 
-app.get('/reset-table', (req, res, next)) {
+app.set('view engine', 'hbs');
+
+app.get('/reset-table', (req, res, next) => {
   const context = {};
 
-  pool.query('DROP TABLE IF EXISTS workouts', (err => {
+  mysql.pool.query('DROP TABLE IF EXISTS workouts', (err) => {
     const createString = 'CREATE TABLE workouts (' +
       'id INT PRIMARY KEY AUTO_INCREMENT,' +
       'name VARCHAR(255) NOT NULL,' +
@@ -22,11 +27,12 @@ app.get('/reset-table', (req, res, next)) {
       'lbs BOOLEAN' +
       ')';
 
-    pool.query(createString, (err) => {
+    mysql.pool.query(createString, (err) => {
       context.results = 'Table Reset';
       res.render('home', content);
-    })
-  }));
-}
+    });
+  });
+});
+
 
 app.listen(PORT, () => console.log(`Listening on ${PORT}. Press Ctrl-C to terminate`));
