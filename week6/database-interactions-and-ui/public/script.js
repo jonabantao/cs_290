@@ -66,6 +66,7 @@ const appendToTable = function appendToTableFnc(workout) {
 
   const editButton = document.createElement('button');
   editButton.textContent = 'Edit';
+  editButton.addEventListener('click', () => navigateToEditPage(workout.id));
   tableCellButtons.appendChild(editButton);
 
   tableRow.appendChild(tableCellButtons);
