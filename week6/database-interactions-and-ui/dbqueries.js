@@ -59,7 +59,7 @@ function addNewWorkout(workout) {
 
   return new Promise((resolve, reject) => {
     mysql.pool.query(
-      'INSERT INTO workouts (name, reps, weight, date, lbs)' +
+      'INSERT INTO workouts (name, reps, weight, date, lbs) ' +
       'VALUES (?, ?, ?, ?, ?)',
       [name, reps, weight, date, lbs],
       (err, result) => {
@@ -72,6 +72,24 @@ function addNewWorkout(workout) {
         workoutWithId.id = result.insertId;
 
         resolve(workoutWithId);
+      }
+    );
+  });
+}
+
+function removeWorkout(id) {
+  return new Promise((resolve, reject) => {
+    console.log('hit');
+    mysql.pool.query(
+      'DELETE FROM workouts ' +
+      'WHERE id = ?',
+      [id],
+      (err) => {
+        if (err) {
+          reject(err);
+        }
+
+        resolve();
       }
     );
   });
@@ -107,5 +125,6 @@ function resetDB() {
 module.exports = {
   fetchWorkouts,
   addNewWorkout,
+  removeWorkout,
   resetDB,
 };

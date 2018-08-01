@@ -48,6 +48,12 @@ app.post('/api/workouts', (req, res, next) => {
     .catch(() => res.status(500).render('500'));
 });
 
+app.delete('/api/workouts/:id', (req, res, next) => {
+  DBQuery.removeWorkout(req.params.id)
+    .then(() => res.sendStatus(200))
+    .catch(() => res.status(500).render('500'));
+});
+
 app.listen(PORT, () => {
   console.log(`Listening on ${PORT}. Press Ctrl-C to terminate`);
 });

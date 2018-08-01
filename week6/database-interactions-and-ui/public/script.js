@@ -1,4 +1,4 @@
-const formatDate = function parseDate(date) {
+const formatDate = function formatDateFnc(date) {
   const workoutDate = new Date(date);
   const formattedDate = `${workoutDate.getMonth() + 1}-${workoutDate.getDate()}-${workoutDate.getFullYear()}`;
 
@@ -6,7 +6,7 @@ const formatDate = function parseDate(date) {
 };
 
 // Function to append new rows into table without refreshing
-const appendToTable = function appendData(workout) {
+const appendToTable = function appendToTableFnc(workout) {
   const tableRow = document.createElement('tr');
   const workoutUnits = workout.lbs === 0 ? 'Kilograms' : 'Pounds';
   const dataToAppend = [
@@ -39,7 +39,7 @@ const appendToTable = function appendData(workout) {
   document.getElementById('tableBody').appendChild(tableRow);
 };
 
-const constructJSONfromForm = function formatJSON() {
+const constructJSONfromForm = function constructJSONfromFormFnc() {
   function getValue(string) {
     return document.getElementById(string).value;
   }
@@ -55,7 +55,7 @@ const constructJSONfromForm = function formatJSON() {
   return JSON.stringify(body);
 };
 
-const handleSubmit = function formSubmit() {
+const handleSubmit = function handleSubmitFnc() {
   const workoutData = constructJSONfromForm();
 
   return fetch('/api/workouts', {
@@ -63,8 +63,18 @@ const handleSubmit = function formSubmit() {
     headers: { 'Content-Type': 'application/json' },
     body: workoutData,
   }).then(res => res.json())
-    .then(appendToTable);
+    .then(appendToTable)
+    .catch(console.error);
 };
+
+const deleteLog = function deleteLogFnc(buttonNode, id) {
+  const tableRow = buttonNode.parentNode.parentNode;
+
+  return fetch(`/api/workouts/${id}`, { method: 'DELETE' })
+    .then(() => tableRow.remove())
+    .catch(console.error);
+};
+
 
 document.getElementById('logForm').addEventListener('submit', (e) => {
   e.preventDefault();
