@@ -53,6 +53,26 @@ function fetchWorkouts() {
   });
 }
 
+function fetchWorkout(id) {
+  return new Promise((resolve, reject) => {
+    mysql.pool.query(
+      'SELECT * FROM workouts WHERE id = ?',
+      [id],
+      (err, result) => {
+        if (err || !result.length) {
+          reject(err);
+        }
+
+        try {
+          resolve(JSON.parse(JSON.stringify(result[0])));
+        } catch (e) {
+          reject(e);
+        }
+      }
+    );
+  });
+}
+
 function addNewWorkout(workout) {
   const { name, reps, weight, date, lbs } = workout;
   const workoutWithId = Object.assign({}, workout);
@@ -123,6 +143,7 @@ function resetDB() {
 
 module.exports = {
   fetchWorkouts,
+  fetchWorkout,
   addNewWorkout,
   removeWorkout,
   resetDB,

@@ -22,9 +22,22 @@ const attachDeleteListeners = function attachDeleteListenersFnc() {
   }
 };
 
+const navigateToEditPage = function navigateToEditPageFnc(id) {
+  window.location = `/edit/${id}`;
+};
+
+const attachEditListeners = function attachEditListenersFnc() {
+  const editButtons = document.getElementsByClassName('edit-workout');
+
+  for (let editButton of editButtons) {
+    const workoutId = editButton.parentNode.parentNode.dataset.id;
+
+    editButton.addEventListener('click', () => navigateToEditPage(workoutId));
+  }
+};
+
 // Function to append new rows into table without refreshing
 const appendToTable = function appendToTableFnc(workout) {
-  console.log(workout);
   const tableRow = document.createElement('tr');
   tableRow.dataset.id = workout.id;
 
@@ -88,10 +101,21 @@ const handleSubmit = function handleSubmitFnc() {
     .catch(console.error);
 };
 
+const attachLogFormListener = function attachLogFormListenerFnc() {
+  const logForm = document.getElementById('logForm');
 
-document.addEventListener('DOMContentLoaded', attachDeleteListeners);
-document.getElementById('logForm').addEventListener('submit', (e) => {
-  e.preventDefault();
-  handleSubmit();
+  if (logForm) {
+    logForm.addEventListener('submit', (e) => {
+      e.preventDefault();
+      handleSubmit();
+    });
+  }
+};
+
+
+document.addEventListener('DOMContentLoaded', () => {
+  attachDeleteListeners();
+  attachEditListeners();
+  attachLogFormListener();
 });
 

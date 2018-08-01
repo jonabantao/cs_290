@@ -12,6 +12,15 @@ app.engine('hbs', hbs({
   extname: 'hbs',
   defaultLayout: 'main',
   partialsDir: `${__dirname}/views/partials`,
+  helpers: {
+    isSelected: function isSelectedFnc(workoutVal, value) {
+      if (workoutVal === value) {
+        return 'checked';
+      }
+
+      return '';
+    }
+  },
 }));
 
 app.set('view engine', 'hbs');
@@ -29,6 +38,22 @@ app.get('/', (req, res, next) => {
       res.status(200).render('home', content);
     })
     .catch(() => res.status(500).render('500'));
+});
+
+
+app.get('/edit/:id', (req, res) => {
+  DBQuery.fetchWorkout(req.params.id)
+    .then(workout => {
+      let formattedWorkout = Object.assign({}, workout);
+
+      // Lazily format date for prefilled form - will break for non-4-digit years
+      formattedWorkout.date = formattedWorkout.date.substring(0, 10);
+
+      const content = formattedWorkout;
+
+      res.status(200).render('edit', content);
+    })
+    .catch(() => res.status(404).render('404'));
 });
 
 app.get('/reset-table', (req, res, next) => {
