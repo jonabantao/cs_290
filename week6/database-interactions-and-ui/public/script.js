@@ -10,7 +10,11 @@ const deleteLog = function deleteLogFnc(buttonNode) {
   const logId = tableRow.dataset.id;
 
   return fetch(`/api/workouts/${logId}`, { method: 'DELETE' })
-    .then(() => tableRow.remove())
+    .then(res => {
+      if (res.status === 200) {
+        tableRow.remove();
+      }
+    })
     .catch(console.error);
 };
 

@@ -26,8 +26,11 @@ const handleSubmit = function handleSubmitFnc() {
     method: 'PUT',
     headers: { 'Content-Type': 'application/json' },
     body: workoutData,
-  }).then(navigateToHomePage)
-    .catch(console.error);
+  }).then(res => {
+    if (res.status === 200) {
+      navigateToHomePage();
+    }
+  });
 };
 
 const attachFormListener = function attachFormListenerFnc() {
