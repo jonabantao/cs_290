@@ -1,13 +1,33 @@
 const formatDate = function formatDateFnc(date) {
   const workoutDate = new Date(date);
-  const formattedDate = `${workoutDate.getMonth() + 1}-${workoutDate.getDate()}-${workoutDate.getFullYear()}`;
-
+  const formattedDate = `${workoutDate.getMonth() + 1}-${workoutDate.getDate() + 1}-${workoutDate.getFullYear()}`;
+  
   return formattedDate;
+};
+
+const deleteLog = function deleteLogFnc(buttonNode) {
+  const tableRow = buttonNode.parentNode.parentNode;
+  const logId = tableRow.dataset.id;
+
+  return fetch(`/api/workouts/${logId}`, { method: 'DELETE' })
+    .then(() => tableRow.remove())
+    .catch(console.error);
+};
+
+const attachDeleteListeners = function attachDeleteListenersFnc() {
+  const deleteButtons = document.getElementsByClassName('delete-workout');
+
+  for (let deleteButton of deleteButtons) {
+    deleteButton.addEventListener('click', () => deleteLog(deleteButton));
+  }
 };
 
 // Function to append new rows into table without refreshing
 const appendToTable = function appendToTableFnc(workout) {
+  console.log(workout);
   const tableRow = document.createElement('tr');
+  tableRow.dataset.id = workout.id;
+
   const workoutUnits = workout.lbs === 0 ? 'Kilograms' : 'Pounds';
   const dataToAppend = [
     workout.name,
@@ -28,6 +48,7 @@ const appendToTable = function appendToTableFnc(workout) {
 
   const deleteButton = document.createElement('button');
   deleteButton.textContent = 'Delete';
+  deleteButton.addEventListener('click', () => deleteLog(deleteButton));
   tableCellButtons.appendChild(deleteButton);
 
   const editButton = document.createElement('button');
@@ -67,16 +88,10 @@ const handleSubmit = function handleSubmitFnc() {
     .catch(console.error);
 };
 
-const deleteLog = function deleteLogFnc(buttonNode, id) {
-  const tableRow = buttonNode.parentNode.parentNode;
 
-  return fetch(`/api/workouts/${id}`, { method: 'DELETE' })
-    .then(() => tableRow.remove())
-    .catch(console.error);
-};
-
-
+document.addEventListener('DOMContentLoaded', attachDeleteListeners);
 document.getElementById('logForm').addEventListener('submit', (e) => {
   e.preventDefault();
   handleSubmit();
 });
+
