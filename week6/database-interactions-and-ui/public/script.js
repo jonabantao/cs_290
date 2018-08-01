@@ -1,6 +1,6 @@
 const formatDate = function formatDateFnc(date) {
   const workoutDate = new Date(date);
-  const formattedDate = `${workoutDate.getMonth() + 1}-${workoutDate.getDate() + 1}-${workoutDate.getFullYear()}`;
+  const formattedDate = `${workoutDate.getMonth() + 1}-${workoutDate.getDate()}-${workoutDate.getFullYear()}`;
   
   return formattedDate;
 };
@@ -83,13 +83,13 @@ const constructJSONfromForm = function constructJSONfromFormFnc() {
     return document.getElementById(string).value;
   }
 
-  const body = {};
-
-  body.name = getValue('name');
-  body.reps = getValue('reps');
-  body.weight = getValue('weight');
-  body.date = getValue('date');
-  body.lbs = document.getElementById('kilos').checked ? 0 : 1;
+  const body = {
+    name: getValue('name'),
+    reps: getValue('reps'),
+    weight: getValue('weight'),
+    date: getValue('date'),
+    lbs: document.getElementById('kilos').checked ? 0 : 1,
+  };
 
   return JSON.stringify(body);
 };
@@ -101,9 +101,7 @@ const handleSubmit = function handleSubmitFnc() {
     method: 'POST',
     headers: { 'Content-Type': 'application/json' },
     body: workoutData,
-  }).then(res => res.json())
-    .then(appendToTable)
-    .catch(console.error);
+  });
 };
 
 const attachLogFormListener = function attachLogFormListenerFnc() {
