@@ -55,32 +55,26 @@ function fetchWorkouts() {
 
 function addNewWorkout(workout) {
   const { name, reps, weight, date, lbs } = workout;
+  const workoutWithId = Object.assign({}, workout);
 
   return new Promise((resolve, reject) => {
     mysql.pool.query(
       'INSERT INTO workouts (name, reps, weight, date, lbs)' +
       'VALUES (?, ?, ?, ?, ?)',
       [name, reps, weight, date, lbs],
-      (err) => {
+      (err, result) => {
         if (err) {
           reject(err);
         }
 
-        resolve();
+        // return the id with the workout so the frontend can handle
+        // DOM manipulation
+        workoutWithId.id = result.insertId;
+
+        resolve(workoutWithId);
       }
     );
   });
-}
-
-function testInsert() {
-  mysql.pool.query(
-    'INSERT INTO workouts (name, reps, weight, date, lbs)' +
-    'VALUES (?, ?, ?, ?, ?)',
-    ['test', 5, 120, '1943-1-2', 0],
-    (err, res) => {
-      console.log(res);
-    }
-  );
 }
 
 function resetDB() {
@@ -113,6 +107,5 @@ function resetDB() {
 module.exports = {
   fetchWorkouts,
   addNewWorkout,
-  testInsert,
   resetDB,
 };

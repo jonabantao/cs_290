@@ -22,9 +22,7 @@ app.get('/', (req, res, next) => {
     .then((exercises) => {
       const content = {};
 
-      if (exercises.length) {
-        content.exerciseLog = exercises;
-      }
+      content.exerciseLog = exercises;
 
       res.status(200).render('home', content);
     })
@@ -44,7 +42,7 @@ app.get('/reset-table', (req, res, next) => {
 
 app.post('/api/workouts', (req, res, next) => {
   DBQuery.addNewWorkout(req.body)
-    .then(() => res.sendStatus(200))
+    .then(workout => res.status(200).json(workout))
     .catch(() => res.status(500).render('500'));
 });
 

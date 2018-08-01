@@ -21,11 +21,11 @@
       <label for="units">Units</label>
         <div>
           <input type="radio" id="kilos" name="units" value="0" checked />
-          <label for="huey">Kilograms</label>
+          <label for="kilos">Kilograms</label>
         </div>
         <div>
           <input type="radio" id="lbs" name="units" value="1" />
-          <label for="dewey">Pounds</label>
+          <label for="lbs">Pounds</label>
         </div>
     </div>
     <input type="submit" value="Log Workout">
@@ -33,6 +33,46 @@
 </form>
 
 <script>
+  const formatDate = function parseDate(date) {
+    const workoutDate = new Date(date);
+    const formattedDate = `${workoutDate.getMonth() + 1}-${workoutDate.getDate()}-${workoutDate.getFullYear()}`;
+
+    return formattedDate;
+  }
+
+  const appendToTable = function appendData(workout) {
+    const tableRow = document.createElement('tr');
+    const workoutUnits = workout.lbs === 0 ? 'Kilograms' : 'Pounds';
+    const dataToAppend = [
+      workout.name,
+      workout.reps,
+      workout.weight,
+      formatDate(workout.date),
+      workoutUnits,
+    ];
+
+    dataToAppend.forEach((workoutData) => {
+      const tableCell = document.createElement('td');
+      tableCell.textContent = workoutData;
+
+      tableRow.appendChild(tableCell);
+    });
+
+    const tableCellButtons = document.createElement('td');
+
+    const deleteButton = document.createElement('button');
+    deleteButton.textContent = 'Delete';
+    tableCellButtons.appendChild(deleteButton);
+
+    const editButton = document.createElement('button');
+    editButton.textContent = 'Edit';
+    tableCellButtons.appendChild(editButton);
+
+    tableRow.appendChild(tableCellButtons);
+
+    document.getElementById('tableBody').appendChild(tableRow);
+  };
+
   const constructJSONfromForm = function formatJSON() {
     function getValue(string) {
       return document.getElementById(string).value;
@@ -56,7 +96,8 @@
       method: 'POST',
       headers: { 'Content-Type': 'application/json' },
       body: workoutData,
-    });
+    }).then(res => res.json())
+      .then(appendToTable);
   }
 
   document.getElementById('logForm').addEventListener('submit', (e) => {
