@@ -79,7 +79,6 @@ function addNewWorkout(workout) {
 
 function removeWorkout(id) {
   return new Promise((resolve, reject) => {
-    console.log('hit');
     mysql.pool.query(
       'DELETE FROM workouts ' +
       'WHERE id = ?',
