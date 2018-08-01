@@ -15,7 +15,9 @@ app.engine('hbs', hbs({
 }));
 
 app.set('view engine', 'hbs');
+
 app.use(bodyParser.json());
+app.use(express.static('public'));
 
 app.get('/', (req, res, next) => {
   DBQuery.fetchWorkouts()
