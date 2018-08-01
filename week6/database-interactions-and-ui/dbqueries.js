@@ -73,6 +73,26 @@ function fetchWorkout(id) {
   });
 }
 
+function updateWorkout(id, updatedWorkout) {
+  const { name, reps, weight, date, lbs } = updatedWorkout;
+
+  return new Promise((resolve, reject) => {
+    mysql.pool.query(
+      'UPDATE workouts ' +
+      'SET name = ?, reps = ?, weight = ?, date = ?, lbs = ? ' +
+      'WHERE id = ?',
+      [name, reps, weight, date, lbs, id],
+      (err) => {
+        if (err) {
+          reject(err);
+        }
+
+        resolve();
+      }
+    );
+  });
+}
+
 function addNewWorkout(workout) {
   const { name, reps, weight, date, lbs } = workout;
   const workoutWithId = Object.assign({}, workout);
@@ -144,6 +164,7 @@ function resetDB() {
 module.exports = {
   fetchWorkouts,
   fetchWorkout,
+  updateWorkout,
   addNewWorkout,
   removeWorkout,
   resetDB,

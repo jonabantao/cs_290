@@ -3,7 +3,7 @@
 <form id="logEdit">
   <fieldset>
     <legend>Edit Workout</legend>
-
+    <input type="hidden" name="logId" id="logId" value="{{this.id}}">
     <div>
       <label for="name">Workout Name:</label>
       <input type="text" name="name" id="name" value="{{this.name}}" required>
@@ -31,6 +31,6 @@
         <label for="lbs">Pounds</label>
       </div>
     </div>
+    <input type="submit" value="Update Workout">
   </fieldset>
-  <input type="submit" value="Edit">
 </form>

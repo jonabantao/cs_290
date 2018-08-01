@@ -73,6 +73,12 @@ app.post('/api/workouts', (req, res, next) => {
     .catch(() => res.status(500).render('500'));
 });
 
+app.put('/api/workouts/:id', (req, res) => {
+  DBQuery.updateWorkout(req.params.id, req.body)
+    .then(() => res.sendStatus(200))
+    .catch(() => res.sendStatus(500));
+});
+
 app.delete('/api/workouts/:id', (req, res, next) => {
   DBQuery.removeWorkout(req.params.id)
     .then(() => res.sendStatus(200))
