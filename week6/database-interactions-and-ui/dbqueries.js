@@ -1,3 +1,6 @@
+// Moment library for ease of date formatting
+const moment = require('moment');
+
 const mysql = require('./dbcon');
 
 // HELPER FUNCTIONS TO MODIFY WORKOUT LOG FOR FRONTEND
@@ -14,8 +17,7 @@ function parseUnits(workout) {
 }
 
 function parseDate(workout) {
-  const workoutDate = new Date(workout.date);
-  const formattedDate = `${workoutDate.getMonth() + 1}-${workoutDate.getDate()}-${workoutDate.getFullYear()}`;
+  const formattedDate = moment(workout.date).format('MM-DD-YYYY');
 
   workout.date = formattedDate;
 
@@ -95,7 +97,7 @@ function updateWorkout(id, updatedWorkout) {
 
 function addNewWorkout(workout) {
   const { name, reps, weight, date, lbs } = workout;
-  const workoutWithId = Object.assign({}, workout);
+  let workoutWithId = Object.assign({}, workout);
 
   return new Promise((resolve, reject) => {
     mysql.pool.query(
@@ -110,6 +112,11 @@ function addNewWorkout(workout) {
         // return the id with the workout so the frontend can handle
         // DOM manipulation
         workoutWithId.id = result.insertId;
+
+        // return date with the proper format per requirements
+        workoutWithId.date = moment(workoutWithId.date, 'YYYY-MM-DD').format('MM-DD-YYYY');
+
+        workoutWithId = parseUnits(workoutWithId);
 
         resolve(workoutWithId);
       }

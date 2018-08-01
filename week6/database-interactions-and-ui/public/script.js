@@ -50,8 +50,8 @@ const appendToTable = function appendToTableFnc(workout) {
     workout.name,
     workout.reps,
     workout.weight,
-    formatDate(workout.date),
-    workoutUnits,
+    workout.date,
+    workout.unit,
   ];
 
   dataToAppend.forEach((workoutData) => {
@@ -101,7 +101,10 @@ const handleSubmit = function handleSubmitFnc() {
     method: 'POST',
     headers: { 'Content-Type': 'application/json' },
     body: workoutData,
-  });
+  })
+  .then(res => res.json())
+  .then(appendToTable)
+  .catch(console.error);
 };
 
 const attachLogFormListener = function attachLogFormListenerFnc() {
