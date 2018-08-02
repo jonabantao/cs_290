@@ -1,12 +1,5 @@
-const formatDate = function formatDateFnc(date) {
-  const workoutDate = new Date(date);
-  const formattedDate = `${workoutDate.getMonth() + 1}-${workoutDate.getDate()}-${workoutDate.getFullYear()}`;
-  
-  return formattedDate;
-};
-
-const deleteLog = function deleteLogFnc(buttonNode) {
-  const tableRow = buttonNode.parentNode.parentNode;
+const deleteLog = function deleteLogFnc(deleteButton) {
+  const tableRow = deleteButton.parentNode.parentNode;
   const logId = tableRow.dataset.id;
 
   return fetch(`/api/workouts/${logId}`, { method: 'DELETE' })
@@ -18,16 +11,11 @@ const deleteLog = function deleteLogFnc(buttonNode) {
     .catch(console.error);
 };
 
-const attachDeleteListeners = function attachDeleteListenersFnc() {
-  const deleteButtons = document.getElementsByClassName('delete-workout');
 
-  for (let deleteButton of deleteButtons) {
-    deleteButton.addEventListener('click', () => deleteLog(deleteButton));
-  }
-};
+const navigateToEditPage = function navigateToEditPageFnc(editButton) {
+  const workoutId = editButton.parentNode.parentNode.dataset.id;
 
-const navigateToEditPage = function navigateToEditPageFnc(id) {
-  window.location = `/edit/${id}`;
+  window.location = `/edit/${workoutId}`;
 };
 
 const attachEditListeners = function attachEditListenersFnc() {
@@ -45,7 +33,6 @@ const appendToTable = function appendToTableFnc(workout) {
   const tableRow = document.createElement('tr');
   tableRow.dataset.id = workout.id;
 
-  const workoutUnits = workout.lbs === 0 ? 'Kilograms' : 'Pounds';
   const dataToAppend = [
     workout.name,
     workout.reps,
@@ -64,13 +51,13 @@ const appendToTable = function appendToTableFnc(workout) {
   const tableCellButtons = document.createElement('td');
 
   const deleteButton = document.createElement('button');
+  deleteButton.classList.add('delete-workout');
   deleteButton.textContent = 'Delete';
-  deleteButton.addEventListener('click', () => deleteLog(deleteButton));
   tableCellButtons.appendChild(deleteButton);
 
   const editButton = document.createElement('button');
   editButton.textContent = 'Edit';
-  editButton.addEventListener('click', () => navigateToEditPage(workout.id));
+  editButton.classList.add('edit-workout');
   tableCellButtons.appendChild(editButton);
 
   tableRow.appendChild(tableCellButtons);
@@ -118,10 +105,22 @@ const attachLogFormListener = function attachLogFormListenerFnc() {
   }
 };
 
+const handleClickListeners = function handleClickListenersFnc(e) {
+  const nodeTarget = e.target;
+
+  if (nodeTarget.classList.contains('delete-workout')) {
+    return deleteLog(nodeTarget);
+  } else if (nodeTarget.classList.contains('edit-workout')) {
+    return navigateToEditPage(nodeTarget);
+  }
+
+  return;
+};
+
 
 document.addEventListener('DOMContentLoaded', () => {
-  attachDeleteListeners();
-  attachEditListeners();
   attachLogFormListener();
+  document.getElementById('tableBody').addEventListener('click', (e) => {
+    handleClickListeners(e);
+  });
 });
-
