@@ -14,9 +14,9 @@ app.set('view engine', 'hbs');
 
 app.use(express.static('public'));
 
-app.get('/', (req, res) => {
-  res.status(200).render('home');
-});
+app.get('/', (req, res) => res.status(200).render('home'));
+
+app.get('/jobs', (req, res) => res.status(200).render('jobs'));
 
 app.use((req, res) => {
   res.status(404).render('404');
