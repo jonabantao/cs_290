@@ -1,50 +1,87 @@
 <section class="section">
-  <div class="container">
+  <div class="container" id="jobPostings">
     <ul>
       <li>
-        <h1 class="title">Asteroid Miner</h1>
-        <h2 class="subtitle">
-          A simple container to divide your page into
-          <strong>sections</strong>, like the one you're currently reading
-        </h2>
-        <button class="button is-primary">One Click Apply</button>
+        <h2 class="title">Asteroid Miner</h2>
+        <h3 class="subtitle">
+          Join our elite team of asteroid miners as you supply valuable resources
+          such as iron, copper, and uranium to Earth.
+        </h3>
+        <div class="content">
+          <h4>Perks Include:</h4>
+          <ul>
+            <li>Your own personal living space</li>
+            <li>Offworld Solutions supplied radiation suit</li>
+            <li>Free pure oxygen while on duty</li>
+          </ul>
+        </div>
+        <button class="button is-primary apply">One Click Apply</button>
       </li>
       <hr class="hr">
       <li>
-        <h1 class="title">Low-Sec Security</h1>
-        <h2 class="subtitle">
-          A simple container to divide your page into
-          <strong>sections</strong>, like the one you're currently reading
-        </h2>
-        <button class="button is-primary">One Click Apply</button>
+        <h2 class="title">Low-Sec Security</h2>
+        <h3 class="subtitle">
+          No combat experience? No problem! You'll spend three months being trained by
+          the latest and greatest combat pilots Offworld Solutions has to offer!
+        </h3>
+        <div class="content">
+          <h4>Perks Include:</h4>
+          <ul>
+            <li>Hazard pay for every mission flown</li>
+            <li>Pilot Offworld Solutions' newest fighter ships (Subject to availability)</li>
+            <li>More dakka than you can imagine!</li>
+          </ul>
+        </div>
+        <button class="button is-primary apply">One Click Apply</button>
       </li>
       <hr class="hr">
       <li>
-        <h1 class="title">Freighter Pilot</h1>
-        <h2 class="subtitle">
-          A simple container to divide your page into
-          <strong>sections</strong>, like the one you're currently reading
-        </h2>
-        <button class="button is-primary">One Click Apply</button>
+        <h2 class="title">Freighter Pilot</h2>
+        <h3 class="subtitle">
+          Enjoy cruising and enjoying the view of deep space? Join Offworld Solutions'
+          as a freighter pilot. Be escorted safely through low-sec by two of our 
+          skilled escort pilots!
+        </h3>
+        <div class="content">
+          <h4>Perks Include:</h4>
+          <ul>
+            <li>Reimbursement for food and drink during your trip</li>
+            <li>Chance to see different planets, ranging from paradise to radioactive!</li>
+            <li>Stay in shape as you help lift Offworld Solutions' cargo</li>
+          </ul>
+        </div>
+        <button class="button is-primary apply">One Click Apply</button>
       </li>
       <hr class="hr">
       <li>
-        <h1 class="title">Freighter Pilot</h1>
-        <h2 class="subtitle">
-          A simple container to divide your page into
-          <strong>sections</strong>, like the one you're currently reading
-        </h2>
-        <button class="button is-primary">One Click Apply</button>
-      </li>
-      <hr class="hr">
-      <li>
-        <h1 class="title">Freighter Pilot</h1>
-        <h2 class="subtitle">
-          A simple container to divide your page into
-          <strong>sections</strong>, like the one you're currently reading
-        </h2>
-        <button class="button is-primary">One Click Apply</button>
+        <h2 class="title">Station Custodian</h2>
+        <h3 class="subtitle">
+          If you're one who prefers the station life, then join the crew as a station
+          custodial engineer! 
+        </h3>
+        <div class="content">
+          <h4>Perks Include:</h4>
+          <ul>
+            <li>Pilot the Clean-o-bot to help you with your sanitization duties</li>
+            <li>Your own office</li>
+            <li>The appreciation of fellow station crew</li>
+          </ul>
+        </div>
+        <button class="button is-primary apply">One Click Apply</button>
       </li>
     </ul>
   </div>
 </section>
+<div id="jobsModal" class="modal">
+  <div id="modalBackground" class="modal-background"></div>
+  <div class="modal-content">
+    <section class="box">
+      <div class="content">
+        <h4>Thank you for applying!</h4>
+        <p>An Offworld Solutions representative will be at your location shortly.</p>
+      </div>
+    </section>
+  </div>
+  <button id="modalClose" class="modal-close is-large" aria-label="close"></button>
+</div>
+<script src="../src/apply.js"></script>

@@ -18,6 +18,10 @@ app.get('/', (req, res) => res.status(200).render('home'));
 
 app.get('/jobs', (req, res) => res.status(200).render('jobs'));
 
+app.get('/media', (req, res) => res.status(200).render('media'));
+
+app.get('/about', (req, res) => res.status(200).render('about'));
+
 app.use((req, res) => {
   res.status(404).render('404');
 });
