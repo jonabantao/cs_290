@@ -3,31 +3,31 @@
 <form id="logEdit">
   <fieldset>
     <legend>Edit Workout</legend>
-    <input type="hidden" name="logId" id="logId" value="{{this.id}}">
+    <input type="hidden" name="logId" id="logId" value="{{id}}">
     <div>
       <label for="name">Workout Name:</label>
-      <input type="text" name="name" id="name" value="{{this.name}}" required>
+      <input type="text" name="name" id="name" value="{{name}}" required>
     </div>
     <div>
       <label for="reps">Reps:</label>
-      <input type="number" min="0" name="reps" id="reps" value="{{this.reps}}" required>
+      <input type="number" min="0" name="reps" id="reps" value="{{reps}}" required>
     </div>
     <div>
       <label for="weight">Weight:</label>
-      <input type="number" min="0" name="weight" id="weight" value="{{this.weight}}" required>
+      <input type="number" min="0" name="weight" id="weight" value="{{weight}}" required>
     </div>
     <div>
       <label for="date">Date:</label>
-      <input type="date" min="1900-01-01" name="date" id="date" value="{{this.date}}">
+      <input type="date" min="1900-01-01" name="date" id="date" value="{{date}}">
     </div>
     <div>
       <label for="units">Units</label>
       <div>
-        <input type="radio" id="kilos" name="units" value="0" {{isSelected 0 this.lbs}} />
+        <input type="radio" id="kilos" name="units" value="0" {{isSelected 0 lbs}} />
         <label for="kilos">Kilograms</label>
       </div>
       <div>
-        <input type="radio" id="lbs" name="units" value="1" {{isSelected 1 this.lbs}} />
+        <input type="radio" id="lbs" name="units" value="1" {{isSelected 1 lbs}} />
         <label for="lbs">Pounds</label>
       </div>
     </div>
