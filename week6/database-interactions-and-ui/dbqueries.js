@@ -39,17 +39,15 @@ function formatWorkout(workout) {
 function fetchWorkouts() {
   return new Promise((resolve, reject) => {
     mysql.pool.query('SELECT * FROM workouts', (err, result) => {
-      if (err) {
-        reject(err);
-      }
+      if (err) return reject(err);
 
       try {
         let workouts = JSON.parse(JSON.stringify(result))
           .map(formatWorkout);
 
-        resolve(workouts);
+        return resolve(workouts);
       } catch(e) {
-        reject(e);
+        return reject(e);
       }
     });
   });
@@ -61,14 +59,12 @@ function fetchWorkout(id) {
       'SELECT * FROM workouts WHERE id = ?',
       [id],
       (err, result) => {
-        if (err || !result.length) {
-          reject(err);
-        }
+        if (err || !result.length) return reject(err);
 
         try {
-          resolve(JSON.parse(JSON.stringify(result[0])));
+          return resolve(JSON.parse(JSON.stringify(result[0])));
         } catch (e) {
-          reject(e);
+          return reject(e);
         }
       }
     );
@@ -79,17 +75,18 @@ function updateWorkout(id, updatedWorkout) {
   const { name, reps, weight, date, lbs } = updatedWorkout;
 
   return new Promise((resolve, reject) => {
+    if (!moment(date).isValid() || !name.length) return reject();
+
     mysql.pool.query(
       'UPDATE workouts ' +
       'SET name = ?, reps = ?, weight = ?, date = ?, lbs = ? ' +
       'WHERE id = ?',
       [name, reps, weight, date, lbs, id],
       (err) => {
-        if (err) {
-          reject(err);
-        }
+        if (err) return reject(err);
+        
 
-        resolve();
+        return resolve();
       }
     );
   });
@@ -100,14 +97,14 @@ function addNewWorkout(workout) {
   let workoutWithId = Object.assign({}, workout);
 
   return new Promise((resolve, reject) => {
+    if (!moment(date).isValid() || !name.length) return reject();
+
     mysql.pool.query(
       'INSERT INTO workouts (name, reps, weight, date, lbs) ' +
       'VALUES (?, ?, ?, ?, ?)',
       [name, reps, weight, date, lbs],
       (err, result) => {
-        if (err) {
-          reject(err);
-        }
+        if (err) return reject(err);
 
         // return the id with the workout so the frontend can handle
         // DOM manipulation
@@ -118,7 +115,7 @@ function addNewWorkout(workout) {
 
         workoutWithId = parseUnits(workoutWithId);
 
-        resolve(workoutWithId);
+        return resolve(workoutWithId);
       }
     );
   });
@@ -131,11 +128,9 @@ function removeWorkout(id) {
       'WHERE id = ?',
       [id],
       (err) => {
-        if (err) {
-          reject(err);
-        }
+        if (err) return reject(err);
 
-        resolve();
+        return resolve();
       }
     );
   });
@@ -144,9 +139,7 @@ function removeWorkout(id) {
 function resetDB() {
   return new Promise((resolve, reject) => {
     mysql.pool.query('DROP TABLE IF EXISTS workouts', (err) => {
-      if (err) {
-        reject(err);
-      }
+      if (err) return reject(err);
 
       const createString = 'CREATE TABLE workouts (' +
         'id INT PRIMARY KEY AUTO_INCREMENT,' +
@@ -158,11 +151,9 @@ function resetDB() {
         ')';
 
       mysql.pool.query(createString, (createStringErr) => {
-        if (createStringErr) {
-          reject(err);
-        }
+        if (createStringErr) return reject(err);
 
-        resolve();
+        return resolve();
       });
     });
   });

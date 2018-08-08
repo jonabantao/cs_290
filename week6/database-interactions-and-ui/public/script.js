@@ -15,9 +15,10 @@ const deleteLog = function deleteLogFnc(deleteButton) {
 const appendToTable = function appendToTableFnc(workout) {
   const tableRow = document.createElement('tr');
   tableRow.dataset.id = workout.id;
+  const trimmedName = workout.name.trim();
 
   const dataToAppend = [
-    workout.name,
+    trimmedName,
     workout.reps,
     workout.weight,
     workout.date,
@@ -64,8 +65,10 @@ const constructJSONfromForm = function constructJSONfromFormFnc() {
     return document.getElementById(string).value;
   }
 
+  const name = getValue('name').trim();
+
   const body = {
-    name: getValue('name'),
+    name,
     reps: getValue('reps'),
     weight: getValue('weight'),
     date: getValue('date'),
