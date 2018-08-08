@@ -51,13 +51,13 @@ const appendToTable = function appendToTableFnc(workout) {
   const tableCellButtons = document.createElement('td');
 
   const deleteButton = document.createElement('button');
-  deleteButton.classList.add('delete-workout');
+  deleteButton.classList.add('button', 'is-danger', 'delete-workout');
   deleteButton.textContent = 'Delete';
   tableCellButtons.appendChild(deleteButton);
 
   const editButton = document.createElement('button');
   editButton.textContent = 'Edit';
-  editButton.classList.add('edit-workout');
+  editButton.classList.add('button', 'is-warning');
   tableCellButtons.appendChild(editButton);
 
   tableRow.appendChild(tableCellButtons);
