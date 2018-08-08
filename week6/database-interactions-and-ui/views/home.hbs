@@ -1,4 +1,12 @@
-<h1>Exercise Log</h1>
-{{>home/log-form}}
+<main class="section">
+  <div class="container">
+    <header>
+      <h1 class="title">Exercise Log</h1>
+    </header>
+    {{>home/log-form}} 
+    
+    {{>home/exercise-table exerciseLog}}
+  </div>
+</main>
 
-{{>home/exercise-table exerciseLog}}
+

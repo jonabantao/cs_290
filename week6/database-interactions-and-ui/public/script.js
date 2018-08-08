@@ -110,8 +110,6 @@ const handleClickListeners = function handleClickListenersFnc(e) {
 
   if (nodeTarget.classList.contains('delete-workout')) {
     return deleteLog(nodeTarget);
-  } else if (nodeTarget.classList.contains('edit-workout')) {
-    return navigateToEditPage(nodeTarget);
   }
 
   return;
