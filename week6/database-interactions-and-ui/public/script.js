@@ -38,6 +38,12 @@ const appendToTable = function appendToTableFnc(workout) {
   deleteButton.textContent = 'Delete';
   tableCellButtons.appendChild(deleteButton);
 
+  // https://stackoverflow.com/questions/8562843/how-to-append-a-space-after-an-element
+  // This is needed because without anything between the text nodes,
+  // new nodes created in JavaScript will not have any spacing
+  // between them
+  tableCellButtons.appendChild(document.createTextNode(' '));
+
   const editAnchor = document.createElement('a');
   editAnchor.href = `/edit/${workout.id}`;
 
