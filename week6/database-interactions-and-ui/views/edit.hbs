@@ -1,36 +1,56 @@
-<h1>Editing Workout</h1>
-
-<form id="logEdit">
-  <fieldset>
-    <legend>Edit Workout</legend>
-    <input type="hidden" name="logId" id="logId" value="{{id}}">
-    <div>
-      <label for="name">Workout Name:</label>
-      <input type="text" name="name" id="name" value="{{name}}" required>
-    </div>
-    <div>
-      <label for="reps">Reps:</label>
-      <input type="number" min="0" name="reps" id="reps" value="{{reps}}" required>
-    </div>
-    <div>
-      <label for="weight">Weight:</label>
-      <input type="number" min="0" name="weight" id="weight" value="{{weight}}" required>
-    </div>
-    <div>
-      <label for="date">Date:</label>
-      <input type="date" min="1900-01-01" name="date" id="date" value="{{date}}">
-    </div>
-    <div>
-      <label for="units">Units</label>
-      <div>
-        <input type="radio" id="kilos" name="units" value="0" {{isSelected 0 lbs}} />
-        <label for="kilos">Kilograms</label>
+<section class="section">
+  <div class="container">
+    <header>
+      <h1 class="title">Edit Workout: {{name}} ({{date}})</h1>
+    </header>
+    <form id="logEdit">
+      <input type="hidden" name="logId" id="logId" value="{{id}}">
+      <div class="field">
+        <label class="label" for="name">Workout Name:</label>
+        <div class="control">
+          <input class="input" type="text" name="name" id="name" value="{{name}}" required>
+        </div>
       </div>
-      <div>
-        <input type="radio" id="lbs" name="units" value="1" {{isSelected 1 lbs}} />
-        <label for="lbs">Pounds</label>
+      <div class="field">
+        <label class="label" for="reps">Reps:</label>
+        <div class="control">
+          <input class="input" type="number" min="0" name="reps" id="reps" value="{{reps}}" required>
+        </div>
       </div>
-    </div>
-    <input type="submit" value="Update Workout">
-  </fieldset>
-</form>
+      <div class="field">
+        <label class="label" for="weight">Weight:</label>
+        <div class="control">
+          <input class="input" type="number" min="0" name="weight" id="weight" value="{{weight}}" required>
+        </div>
+      </div>
+      <div class="field">
+        <label class="label" for="date">Date:</label>
+        <div class="control">
+          <input class="input" type="date" min="1900-01-01" name="date" id="date" value="{{date}}">
+        </div>
+      </div>
+      <div class="field">
+        <label class="label" for="units">Units</label>
+        <div class="control">
+          <label for="kilos" class="radio">
+            <input type="radio" id="kilos" name="units" value="0" {{isSelected 0 lbs}} />
+            Kilograms
+          </label>
+          <label for="lbs" class="radio">
+            <input type="radio" id="lbs" name="units" value="1" {{isSelected 1 lbs}} />
+            Pounds
+          </label>
+        </div>
+      </div>
+      <div class="field is-grouped">
+        <input class="button is-warning" type="submit" value="Update Workout">
+        &nbsp;
+        <p class="control">
+          <a href="/" class="button is-info">
+            Cancel
+          </a>
+        </p>
+      </div>
+    </form>
+  </div>
+</section>
