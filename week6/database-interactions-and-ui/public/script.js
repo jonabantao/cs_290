@@ -11,23 +11,6 @@ const deleteLog = function deleteLogFnc(deleteButton) {
     .catch(console.error);
 };
 
-
-const navigateToEditPage = function navigateToEditPageFnc(editButton) {
-  const workoutId = editButton.parentNode.parentNode.dataset.id;
-
-  window.location = `/edit/${workoutId}`;
-};
-
-const attachEditListeners = function attachEditListenersFnc() {
-  const editButtons = document.getElementsByClassName('edit-workout');
-
-  for (let editButton of editButtons) {
-    const workoutId = editButton.parentNode.parentNode.dataset.id;
-
-    editButton.addEventListener('click', () => navigateToEditPage(workoutId));
-  }
-};
-
 // Function to append new rows into table without refreshing
 const appendToTable = function appendToTableFnc(workout) {
   const tableRow = document.createElement('tr');
@@ -51,14 +34,19 @@ const appendToTable = function appendToTableFnc(workout) {
   const tableCellButtons = document.createElement('td');
 
   const deleteButton = document.createElement('button');
-  deleteButton.classList.add('button', 'is-danger', 'delete-workout');
+  deleteButton.classList.add('button', 'is-danger', 'is-small', 'delete-workout');
   deleteButton.textContent = 'Delete';
   tableCellButtons.appendChild(deleteButton);
 
+  const editAnchor = document.createElement('a');
+  editAnchor.href = `/edit/${workout.id}`;
+
   const editButton = document.createElement('button');
   editButton.textContent = 'Edit';
-  editButton.classList.add('button', 'is-warning');
-  tableCellButtons.appendChild(editButton);
+  editButton.classList.add('button', 'is-warning', 'is-small');
+
+  editAnchor.appendChild(editButton);
+  tableCellButtons.appendChild(editAnchor);
 
   tableRow.appendChild(tableCellButtons);
 
@@ -81,6 +69,10 @@ const constructJSONfromForm = function constructJSONfromFormFnc() {
   return JSON.stringify(body);
 };
 
+const clearForm = function clearFormFnc() {
+  document.getElementById('logForm').reset();
+};
+
 const handleSubmit = function handleSubmitFnc() {
   const workoutData = constructJSONfromForm();
 
@@ -91,6 +83,7 @@ const handleSubmit = function handleSubmitFnc() {
   })
   .then(res => res.json())
   .then(appendToTable)
+  .then(clearForm)
   .catch(console.error);
 };
 
