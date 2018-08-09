@@ -62,7 +62,13 @@ function fetchWorkout(id) {
         if (err || !result.length) return reject(err);
 
         try {
-          return resolve(JSON.parse(JSON.stringify(result[0])));
+          let workout = JSON.parse(JSON.stringify(result[0]));
+
+          // Format input date specifically for input value in edit page
+          workout.inputDate = moment(workout.date).format('YYYY-MM-DD');
+          workout = parseDate(workout);
+
+          return resolve(workout);
         } catch (e) {
           return reject(e);
         }
