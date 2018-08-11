@@ -1,6 +1,5 @@
 const express = require('express');
 const hbs = require('express-handlebars');
-const bodyParser = require('body-parser');
 
 const DBQuery = require('./dbqueries');
 
@@ -24,7 +23,7 @@ app.engine('hbs', hbs({
 
 app.set('view engine', 'hbs');
 
-app.use(bodyParser.json());
+app.use(express.json());
 app.use(express.static('public'));
 
 app.get('/', (req, res) => {

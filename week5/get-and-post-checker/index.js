@@ -1,5 +1,4 @@
 const express = require('express');
-const bodyParser = require('body-parser');
 const hbs = require('express-handlebars');
 
 const app = express();
@@ -11,8 +10,8 @@ const hbsConfig = {
   partialsDir: `${__dirname}/views/partials`,
 };
 
-app.use(bodyParser.urlencoded({ extended: false }));
-app.use(bodyParser.json());
+app.use(express.json());
+app.use(express.urlencoded({ extended: false }));
 
 app.engine('hbs', hbs(hbsConfig));
 
